@@ -1,26 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+class Child1 extends React.Component {
+  render(){
+    console.log('Child1 rendered')
+    return <div style = {{border: '1px solid red'}}>
+      Child1
+    </div>
+  }
+}
+class Child2 extends React.Component {
+  render(){
+    console.log('Child2 Rendered')
+    return <div style = {{border: '1px solid blue'}}>
+      Child2
+    </div>
+  }
+}
+class Parent extends React.Component {
+  constructor(){
+    super()
+    this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      clicked: false,
+    }
+  }
+  handleClick(){
+    this.setState((prevState) => ({clicked: !prevState.clicked}));
+  }
+  render(){
+    console.log('Parent rendered')
+
+    return <div onClick={this.handleClick} style = {{border: '1px solid black'}}>
+      Parent
+      <Child1/>
+      <Child2/>
+    </div>
+  }
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <Parent/>
 }
 
 export default App;
